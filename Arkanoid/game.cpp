@@ -6,10 +6,10 @@
 
 int main(int argc, char *argv[])
 {
-	if (argc == 3)
+	if (argc == 4 && !strcmp(argv[1], "-window"))
 	{
-		int w = stoi(argv[1]);
-		int h = stoi(argv[2]);
+		int w = stoi(argv[2]);
+		int h = stoi(argv[3]);
 		scale(w, h);
 	}
 

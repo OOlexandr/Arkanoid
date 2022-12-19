@@ -36,9 +36,7 @@ bool MyFramework::Init()
 		balls.push_back(new Ball(BallStartX, BallStartY));
 	}
 
-	bricks.push_back(new Brick(0, 0));
-	bricks.push_back(new Brick(BrickWidth, 0));
-	bricks.push_back(new Brick(BrickWidth * 2, 0));
+	loadLevel();
 
 	platform = new Platform();
 	return true;
@@ -70,6 +68,7 @@ void MyFramework::Close()
 	ballsLaunched = 0;
 	platformMovementDirection = 0;
 	delete barrier;
+	barrier = 0;
 	barrierUp = false;
 }
 
@@ -87,7 +86,17 @@ bool MyFramework::Tick()
 		}
 		if (i < bricks.size())
 		{
-			bricks[i]->tick();
+			MovingBrick* cast = dynamic_cast<MovingBrick*>(bricks[i]);
+			if (cast != nullptr)
+			{
+				cast->tick();
+				bricksList[i].x = cast->xpos;
+				bricksList[i].y = cast->ypos;
+			}
+			else
+			{
+				bricks[i]->tick();
+			}
 		}
 	}
 
@@ -114,7 +123,9 @@ bool MyFramework::Tick()
 	bool onPlatform = false;
 	for (int i = 0; i < balls.size(); i++)
 	{
-		onPlatform = (balls[i]->tick()) ? true : onPlatform;
+		ballOnPlatform = false;
+		balls[i]->tick();
+		onPlatform = (ballOnPlatform) ? true : onPlatform;
 		if (balls[i]->isOut())
 		{
 			delete balls[i];
@@ -234,5 +245,17 @@ void MyFramework::restart()
 
 void MyFramework::loadLevel()
 {
-	//It is not in the task, but i want it. It's pretty.
+	for (int i = 0; i < 12; i++)
+	{
+		for (int j = 2; j < 5; j++)
+		{
+			bricks.push_back(new Brick(i * BrickWidth, j * BrickHeight));
+		}
+	}
+	bricks.push_back(new MovingBrick(0, BrickHeight * 5, 1, BrickHeight * 4));
+	bricks.push_back(new MovingBrick(BrickWidth, BrickHeight * 9, 1, BrickHeight * -4));
+	bricks.push_back(new MovingBrick(Width - BrickWidth, BrickHeight * 5, 1, BrickHeight * 4));
+	bricks.push_back(new MovingBrick(Width - (2 * BrickWidth), BrickHeight * 9, 1, BrickHeight * -4));
+	bricks.push_back(new MovingBrick(2 * BrickWidth, BrickHeight * 9, 0, BrickWidth * 3));
+	bricks.push_back(new MovingBrick(Width - 3 * BrickWidth, BrickHeight * 9, 0, BrickWidth * -3));
 }

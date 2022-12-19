@@ -1,6 +1,7 @@
 #pragma once
 #include "ball.h"
 #include "brick.h"
+#include "movingbrick.h"
 #include "platform.h"
 #include "item.h"
 #include "barrier.h"

@@ -40,6 +40,8 @@ extern int platformPosition;
 
 extern bool barrierUp;
 
+extern bool ballOnPlatform;
+
 bool ballLineIntersection(coordinates ball, int r, coordinates end1, coordinates end2);
 
 void scale(int w, int h);

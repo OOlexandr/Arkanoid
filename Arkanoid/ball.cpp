@@ -8,21 +8,21 @@ Ball::Ball(int x, int y) :Actor(BallSprite, x, y, BallDiameter, BallDiameter)
 {
 }
 
-bool Ball::bounce()
+void Ball::bounce()
 {
     int diameter = 0, diameter2 = 0, width = 0, height = 0;
 
     if (xpos <= 0)
     {
         xspeed *= -1;
-        xpos = 0;
+        xpos = 1;
     }
     else if (xpos + BallDiameter >= Width)
     {
         xspeed *= -1;
-        xpos = Width - BallDiameter;
+        xpos = Width - BallDiameter - 1;
     }
-    if (ypos <= 0)
+    if (ypos <= 1)
     {
         yspeed *= -1;
     }
@@ -34,7 +34,7 @@ bool Ball::bounce()
         bounceFromBarrier();
     }
     
-    return bounceFromPlatform();
+    bounceFromPlatform();
 }
 
 void Ball::bounceFromBricks()
@@ -124,7 +124,7 @@ void Ball::bounceFromBricks()
     }
 }
 
-bool Ball::bounceFromPlatform()
+void Ball::bounceFromPlatform()
 {
     //Center of the ball
     coordinates cball;
@@ -144,9 +144,8 @@ bool Ball::bounceFromPlatform()
         int MDy = Height;
         launch(2 * cball.x - MDx, 2 * cball.y - MDy);
 
-        return true;
+        ballOnPlatform = true;
     }
-    return false;
 }
 
 void Ball::bounceFromBarrier()
@@ -163,7 +162,7 @@ bool Ball::isOut()
     return ypos > Height;
 }
 
-bool Ball::tick()
+void Ball::tick()
 {
     __super::tick();
     return bounce();
@@ -171,14 +170,12 @@ bool Ball::tick()
 
 void Ball::launch(int xdir, int ydir)
 {
-    int diameter = 0, diameter2 = 0;
-    getSpriteSize(sprite, diameter, diameter2);
-    float xcenter = xpos + (diameter / 2);
-    float ycenter = ypos + (diameter / 2);
+    float xcenter = xpos + (BallDiameter / 2);
+    float ycenter = ypos + (BallDiameter / 2);
     float xdistance = xdir - xcenter;
     float ydistance = ydir - ycenter;
     float distance = sqrtf(xdistance * xdistance + ydistance * ydistance);
-    float ratio = speed / distance;
+    float ratio = BallSpeed / distance;
     xspeed = xdistance * ratio;
     yspeed = ydistance * ratio;
 }

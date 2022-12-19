@@ -45,6 +45,9 @@
     <ClCompile Include="gamerules.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="movingbrick.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="FrameworkRelease_x64.lib" />
@@ -75,6 +78,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="gamerules.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="movingbrick.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

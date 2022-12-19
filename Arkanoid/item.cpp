@@ -15,5 +15,5 @@ bool Item::isCaught()
 
 bool Item::isOut()
 {
-	return xpos >= Height;
+	return ypos >= Height;
 }

@@ -4,11 +4,11 @@
 class Ball :
     public Actor
 {
-    bool bounce();
+    void bounce();
 
     void bounceFromBricks();
 
-    bool bounceFromPlatform();
+    void bounceFromPlatform();
 
     void bounceFromBarrier();
 public:
@@ -17,7 +17,7 @@ public:
 
     Ball(int x, int y);
 
-    bool tick();
+    void tick();
 
     void launch(int xdir, int ydir);
 };

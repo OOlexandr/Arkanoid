@@ -1,15 +1,15 @@
 #include "gamestate.h"
 
-int Width = 400;
+int Width = 407;
 int Height = 400;
-int BallDiameter = 30;
+int BallDiameter = 15;
 int BallSpeed = 200;
 int BallsAmount = 1;
 float TimeBetweenLaunches = 1;
-int BrickWidth = 70;
-int BrickHeight = 35;
-int PlatformWidth = 140;
-int PlatformHeight = 35;
+int BrickWidth = 34;
+int BrickHeight = 17;
+int PlatformWidth = 70;
+int PlatformHeight = 17;
 int PlatformSpeed = 200;
 int ItemFallSpeed = 50;
 int BallStartX = (Width - BallDiameter) / 2;
@@ -30,6 +30,8 @@ vector<coordinates> bricksList = vector<coordinates>();
 int platformPosition = (Width - PlatformWidth) / 2;
 
 bool barrierUp = false;
+
+bool ballOnPlatform = false;
 
 bool ballLineIntersection(coordinates ball, int r, coordinates end1, coordinates end2)
 {
